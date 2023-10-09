@@ -1,13 +1,17 @@
 "use client";
 
 import { Fragment } from "react";
+import { format } from "date-fns";
 import { Member, Message, Profile } from "@prisma/client";
 import { Loader2, ServerCrash } from "lucide-react";
 
 import { useChatQuery } from "@/hooks/use-chat-query";
+import { useChatSocket } from "@/hooks/use-chat-socket";
 
 import { ChatWelcome } from "./chat-welcome";
+import { ChatItem } from "./chat-item";
 
+const DATE_FORMAT = "d MMM yyy, HH:mm";
 type MessageWithMemberWithProfile = Message & {
   member: Member & {
     profile: Profile;
@@ -36,6 +40,8 @@ export const ChatMessages = ({
   type,
 }: ChatMessagesProps) => {
   const queryKey = `chat:${chatId}`;
+  const addKey = `chat:${chatId}:messages`;
+  const updateKey = `chat:${chatId}:messages:update`;
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
     useChatQuery({
       queryKey,
@@ -43,6 +49,7 @@ export const ChatMessages = ({
       paramKey,
       paramValue,
     });
+  useChatSocket({ queryKey, addKey, updateKey });
 
   if (status === "loading") {
     return (
@@ -73,9 +80,24 @@ export const ChatMessages = ({
       <div className="flex flex-col-reverse mt-auto">
         {data?.pages?.map((group, i) => (
           <Fragment key={i}>
-            {group.items.map((message: MessageWithMemberWithProfile) => (
-              <div key={message.id}>{message.content}</div>
-            ))}
+            {group.items.map((message: MessageWithMemberWithProfile) => {
+              return (
+                <ChatItem
+                  currentMember={member}
+                  key={message.id}
+                  id={message.id}
+                  currentMember={member}
+                  content={message.content}
+                  fileUrl={message.fileUrl}
+                  deleted={message.deleted}
+                  timestamp={format(new Date(message.createdAt), DATE_FORMAT)}
+                  isUpdated={message.updatedAt !== message.createdAt}
+                  socketUrl={socketUrl}
+                  socketQuery={socketQuery}
+                  member={message.member}
+                />
+              );
+            })}
           </Fragment>
         ))}
       </div>

@@ -33,7 +33,7 @@ export const useChatQuery = ({
     const res = await fetch(url);
     return res.json();
   };
-
+  // console.log("call in 1s ", "coneet", isConnected);
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
     useInfiniteQuery({
       queryKey: [queryKey],

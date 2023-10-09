@@ -63,8 +63,6 @@ export async function GET(req: Request) {
     }
 
     let nextCursor = null;
-    console.log({ nextCursor });
-
     if (messages.length === MESSAGES_BATCH) {
       nextCursor = messages[MESSAGES_BATCH - 1].id;
     }
