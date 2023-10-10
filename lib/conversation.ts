@@ -1,5 +1,4 @@
 import { db } from "@/lib/db";
-import { profile } from "console";
 
 export const getOrCreateConversation = async (
   memberOneId: string,

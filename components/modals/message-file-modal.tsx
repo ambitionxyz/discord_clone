@@ -19,7 +19,6 @@ import { Button } from "@/components/ui/button";
 import { FileUpload } from "@/components/file-upload";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-modal-store";
-import { url } from "inspector";
 
 const formSchema = z.object({
   fileUrl: z.string().min(1, {

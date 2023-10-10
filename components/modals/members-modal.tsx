@@ -4,7 +4,6 @@ import qs from "query-string";
 import {
   ShieldCheck,
   MoreVertical,
-  ShieldAlert,
   ShieldQuestion,
   Shield,
   Check,
@@ -19,7 +18,6 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";

@@ -17,7 +17,6 @@ export default async function handler(
   try {
     const profile = await currentProfilePages(req);
     const { messageId, serverId, channelId } = req.query;
-    // console.log(req.query);
     const { content } = req.body;
 
     if (!profile) {
