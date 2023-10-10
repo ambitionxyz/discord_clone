@@ -1,0 +1,5 @@
+{
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/api/direct-messages/route": "app/api/direct-messages/route.js",
+  "/(main)/(routes)/servers/[serverId]/conversations/[memberId]/page": "app/(main)/(routes)/servers/[serverId]/conversations/[memberId]/page.js"
+}
